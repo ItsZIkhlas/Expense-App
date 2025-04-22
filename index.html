@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Expense Tracker</h1>
+        <p>Track your income and expenses</p>
+        <button id="reset">Reset</button>
+        <select class="currency_select" id="currency">
+          <option value="usd">USD</option>
+          <option value="aed">AED</option>
+          <option value="afn">AFN</option>
+          <option value="eur">EUR</option>
+          <option value="gbp">GBP</option>
+          <option value="pkr">PKR</option>
+        </select>
+      </header>
+
+      <!-- Balance Display -->
+      <div class="card balance-display">
+        <h2>Balance</h2>
+        <h1 id="balanceNumber">$0</h1>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="summary-cards">
+        <div class="card income-card">
+          <h3>Income</h3>
+          <p class="income" id="totalIncome">+$0</p>
+        </div>
+        <div class="card expense-card">
+          <h3>Expenses</h3>
+          <p class="expense" id="totalExpense">-$0</p>
+        </div>
+      </div>
+
+      <!-- Transaction Form -->
+      <div class="card">
+        <input type="text" placeholder="Description" id="title" required />
+        <input type="number" placeholder="Amount" id="amount" required />
+        <select id="category">
+          <option value="">Select Category</option>
+          <option>Food</option>
+          <option>Transport</option>
+          <option>Shopping</option>
+        </select>
+        <select id="type">
+          <option value="">Select Type</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <button type="submit" id="addItemBtn">Add Transaction</button>
+      </div>
+
+      <!-- Income Transaction List -->
+      <div class="card">
+        <h3>Income</h3>
+        <ul class="transaction-list" id="transactionListIncome"></ul>
+      </div>
+
+      <!-- Expense Transaction List -->
+      <div class="card">
+        <h3>Expenses</h3>
+        <ul class="transaction-list" id="transactionListExpense"></ul>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
