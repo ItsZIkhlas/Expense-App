@@ -8,7 +8,6 @@ const resetDOM = document.getElementById("reset");
 const currencySelectorDOM = document.getElementById("currency");
 const titleDOM = document.getElementById("title");
 const amountDOM = document.getElementById("amount");
-const deleteBtn = document.getElementById('deleteBtn');
 
 let balance = Number(localStorage.getItem("balanceMain")) || 0;
 let totalIncome = Number(localStorage.getItem("totalIncome")) || 0;
@@ -50,7 +49,7 @@ function createIncomeTransaction() {
   li.classList.add("transaction", "income");
   li.innerHTML = `💸 ${title} +$${amount.toFixed(
     2
-  )} <button class="delete" id="deleteBtn">×</button>`;
+  )} <button class="delete">×</button>`;
   transIncDOM.appendChild(li);
 
   balance += amount;
@@ -60,10 +59,6 @@ function createIncomeTransaction() {
   updateDisplay();
   saveToLocalStorage();
 }
-
-deleteBtn.addEventListener('click', () => {
-  deleteBtn.remove()
-});
 
 function createExpenseTransaction() {
   const title = titleDOM.value.trim();
@@ -79,7 +74,7 @@ function createExpenseTransaction() {
   li.classList.add("transaction", "expense");
   li.innerHTML = `🧾 ${title} -$${amount.toFixed(
     2
-  )} <button class="delete" id="deleteBtn">×</button>`;
+  )} <button class="delete">×</button>`;
   transExpDOM.appendChild(li);
 
   balance -= amount;
@@ -130,3 +125,31 @@ function getCurrencySymbol(code) {
   };
   return map[code] || "$";
 }
+
+// Delete income transaction
+transIncDOM.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    const li = e.target.parentElement;
+    const amountText = li.textContent.match(/\+?\$([\d.]+)/);
+    const amount = amountText ? Number(amountText[1]) : 0;
+    balance -= amount;
+    totalIncome -= amount;
+    li.remove();
+    updateDisplay();
+    saveToLocalStorage();
+  }
+});
+
+// Delete expense transaction
+transExpDOM.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    const li = e.target.parentElement;
+    const amountText = li.textContent.match(/-\$([\d.]+)/);
+    const amount = amountText ? Number(amountText[1]) : 0;
+    balance += amount;
+    totalExpense -= amount;
+    li.remove();
+    updateDisplay();
+    saveToLocalStorage();
+  }
+});
